@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Col, Form, Button, Row } from 'react-bootstrap';
 import { MovieCard } from '../movie-card/movie-card';
 
-export const ProfileView = ({ user, token, movies, onLoggedOut, updateUser }) => {
+export const ProfileView = ({ user, token, movies, onLoggedOut, updateUser, setUser }) => {
 
    const [username, setUsername] = useState('');
    const [password, setPassword] = useState('');
@@ -11,9 +11,11 @@ export const ProfileView = ({ user, token, movies, onLoggedOut, updateUser }) =>
    // const [favoriteMovies, setFavoriteMovies] = useState(user.favoriteMovies);
    const [favoriteMovies, setFavoriteMovies] = useState(user.FavoriteMovies || []);
    const [filteredMovies, setFilteredMovies] = useState([]);
+   const [user, setUser] = useState(null);
 
    const addToFavorites = (movie) => { };
-   
+   const handleRemoveFromFavorites = (movie) => { };
+
 console.log("user: ", user);
 console.log("movies: ", movies);
 console.log("user.favoriteMovies: ", user.favoriteMovies);
@@ -46,14 +48,14 @@ console.log("user.favoriteMovies: ", user.favoriteMovies);
       });
    };
    
-   // const handleClick = () => {
-   //    setIsFavorite(true);
-   //    addToFavorites(movie._id);
-   //    if (user && user.FavoriteMovies) {
-   //      setFavoriteMovies([user.FavoriteMovies, movie._id]);
-   //      setUser(updateUser);
-   //    }
-   //  };
+   const handleClick = () => {
+      setIsFavorite(false);
+      removeFromFavorites(movie._id);
+      if (user && user.FavoriteMovies) {
+        setFavoriteMovies([user.FavoriteMovies, movie._id]);
+        setUser(updateUser);
+      }
+    };
 
    useEffect(() => {
       handleGetUserFavorites();
@@ -198,7 +200,7 @@ console.log("user.favoriteMovies: ", user.favoriteMovies);
                   setFavoriteMovies={setFavoriteMovies}
                   user={user}
                   buttonTitle="Remove from Favorites"
-                  // onClick={handleClick}
+                  onClick={handleClick}
                />
             </Col>
          ))}
