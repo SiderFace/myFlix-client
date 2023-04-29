@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Col, Form, Button, Row } from 'react-bootstrap';
 import { MovieCard } from '../movie-card/movie-card';
 
-export const ProfileView = ({ user, token, movies, onLoggedOut, updateUser, setUser }) => {
+export const ProfileView = ({ user, token, movies, onLoggedOut }) => {
 
    const [username, setUsername] = useState('');
    const [password, setPassword] = useState('');
@@ -11,10 +11,9 @@ export const ProfileView = ({ user, token, movies, onLoggedOut, updateUser, setU
    // const [favoriteMovies, setFavoriteMovies] = useState(user.favoriteMovies);
    const [favoriteMovies, setFavoriteMovies] = useState(user.FavoriteMovies || []);
    const [filteredMovies, setFilteredMovies] = useState([]);
-   const [user, setUser] = useState(null);
+   // const [user, setUser] = useState(null);
 
    const addToFavorites = (movie) => { };
-   const handleRemoveFromFavorites = (movie) => { };
 
 console.log("user: ", user);
 console.log("movies: ", movies);
@@ -40,7 +39,7 @@ console.log("user.favoriteMovies: ", user.favoriteMovies);
       
          // setUserProfile(data);
 
-         var filtered = movies.filter(movie => data.FavoriteMovies.includes(movie._id))
+         const filtered = movies.filter(movie => data.FavoriteMovies.includes(movie._id))
          setFilteredMovies(filtered);
       })
       .catch(error => {
@@ -48,6 +47,46 @@ console.log("user.favoriteMovies: ", user.favoriteMovies);
       });
    };
    
+   const handleRemoveFromFavorites = (movieId) => {
+
+      console.log("The value of movieId is: ", movieId);
+   
+      const accessToken = localStorage.getItem('token');
+      const userName = JSON.parse(localStorage.getItem('user')).Username;
+   
+      // Remove from favorites
+      fetch(`https://siders-myflix.herokuapp.com/users/${userName}/movies/${movieId}`, {
+         method: 'DELETE',
+         headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+         }
+      })
+      .then(response => response.json())
+      .then(data => {
+         console.log(`Movie removed from favorites: ${JSON.stringify(data)}`);
+         alert("Movie removed from favorites");
+   
+         const updatedFavorites = user.FavoriteMovies.filter(id => id !== movieId);
+         setUser({ ...user, FavoriteMovies: updatedFavorites });
+   
+         setMovies(prevMovies => prevMovies.map(movie => {
+            if (movie._id === movieId) {
+            return {
+               ...movie,
+               Favorite: false
+            }
+            } else {
+            return movie;
+            }
+         }))
+   
+      })
+      .catch(error => {
+         console.error(`Error removing movie from favorites: ${error}`);
+      });
+   };
+
    const handleClick = () => {
       setIsFavorite(false);
       removeFromFavorites(movie._id);
@@ -196,7 +235,7 @@ console.log("user.favoriteMovies: ", user.favoriteMovies);
                
                <MovieCard
                   movie={movie}
-                  addToFavorites={ () => alert("Clicked in ProfileView") }
+                  handleClickActions={handleRemoveFromFavorites}
                   setFavoriteMovies={setFavoriteMovies}
                   user={user}
                   buttonTitle="Remove from Favorites"

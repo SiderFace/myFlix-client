@@ -128,7 +128,7 @@ export const MainView = () => {
       });
     };
 
-    
+
    return (
       <BrowserRouter>
          <NavigationBar
@@ -204,15 +204,17 @@ export const MainView = () => {
                      </>
                   }
                />
-               <Route
-                  path="/profile"
+               <Route path="/profile"
                   element={
                      <>
                         {!user ? (
                            <Navigate to="/login" replace />
                         ) : (
                            <Col>
-                              <ProfileView user={user} token={token} movies={movies} onLoggedOut={onLoggedOut} updateUser={updateUser} />
+                              <ProfileView user={user} token={token} 
+                              movies={movies} 
+                              onLoggedOut={onLoggedOut} 
+                              updateUser={updateUser} />
                            </Col>
                         )}
                      </>
@@ -249,8 +251,7 @@ export const MainView = () => {
                                     className='mb-5'
                                  >
                                     <MovieCard movie={movie}
-                                       addToFavorites={handleAddToFavorite} 
-                                       removeFromFavorites={handleRemoveFromFavorites} 
+                                       handleClickActions={handleAddToFavorite} 
                                        buttonTitle="Add to Favorites" />
 
                                  </Col>
