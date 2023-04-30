@@ -162,15 +162,6 @@ export const MainView = () => {
                      </>
                   }
                />  
-                              
-               {/* <React.Fragment>
-                  <br />
-                  <br />
-                  <br />
-                  <h3>Or sign up here:</h3>
-                  <br />
-                  <br />
-               </React.Fragment> */}
 
                <Route
                   path='/signup'
@@ -250,7 +241,8 @@ export const MainView = () => {
                                     md={4}
                                     className='mb-5'
                                  >
-                                    <MovieCard movie={movie}
+                                    <MovieCard 
+                                       movie={movie}
                                        handleClickActions={handleAddToFavorite} 
                                        buttonTitle="Add to Favorites" />
 

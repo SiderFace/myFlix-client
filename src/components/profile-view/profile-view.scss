@@ -1,0 +1,34 @@
+.profile-container {
+   margin-top: 50px;
+}
+
+.user-info-card {
+   background-color: #f5f5f5;
+   border-radius: 10px;
+   padding: 20px;
+   box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.favorites-header {
+   text-align: start;
+   color: white;
+}
+
+.movie-card-col {
+   margin-bottom: 20px;
+}
+
+.form-control[type="email"],
+.form-control[type="date"],
+.form-control[type="text"],
+.form-control[type="password"] {
+   background-color: #fff !important;
+}
+
+.form-control {
+   background-color: #fff;
+ }
+
+ .form-control:focus {
+   background-color: #fff;
+ }

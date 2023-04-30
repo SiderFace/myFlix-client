@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Col, Form, Button, Row } from 'react-bootstrap';
+import { Card, Col, Form, Button, Row, Container } from 'react-bootstrap';
 import { MovieCard } from '../movie-card/movie-card';
+import './profile-view.scss';
 
 export const ProfileView = ({ user, token, movies, onLoggedOut }) => {
 
@@ -8,18 +9,11 @@ export const ProfileView = ({ user, token, movies, onLoggedOut }) => {
    const [password, setPassword] = useState('');
    const [email, setEmail] = useState('');
    const [birthdate, setBirthdate] = useState('');
-   // const [favoriteMovies, setFavoriteMovies] = useState(user.favoriteMovies);
    const [favoriteMovies, setFavoriteMovies] = useState(user.FavoriteMovies || []);
    const [filteredMovies, setFilteredMovies] = useState([]);
    // const [user, setUser] = useState(null);
 
    const addToFavorites = (movie) => { };
-
-console.log("user: ", user);
-console.log("movies: ", movies);
-console.log("user.favoriteMovies: ", user.favoriteMovies);
-
-   // let favoriteMovies = movies.filter(movie => user.favoriteMovies.includes(movie.id));
 
    const handleGetUserFavorites = () => {
       const accessToken = localStorage.getItem('token');
@@ -36,8 +30,6 @@ console.log("user.favoriteMovies: ", user.favoriteMovies);
       .then(response => response.json())
       .then(data => {
          console.log(`User profile: ${JSON.stringify(data)}`);
-      
-         // setUserProfile(data);
 
          const filtered = movies.filter(movie => data.FavoriteMovies.includes(movie._id))
          setFilteredMovies(filtered);
@@ -147,29 +139,35 @@ console.log("user.favoriteMovies: ", user.favoriteMovies);
       });
    }
 
-   // const filteredMovies = movies.filter(movie => favoriteMovies.includes(movie._id));
-   // const filteredMovies = movies.filter(movie => favoriteMovies && favoriteMovies.includes(movie._id));
-
    return (
-      <>
-         <Col justify-content-md-center>           
-               <Card>
+      <Container className='profile-container'>
+         <Row>
+            <Col xs={12} sm={4}>           
+               <Card className='user-info-card'>
                   <Card.Body>
-                     <Card.Title >Your info :</Card.Title>
-                     <p>Username: {user.Username}</p>
-                     <p>Email: {user.Email}</p>
-                     <p>Birthdate: {user.Birthday}</p>
+                     <Card.Title>Your info :</Card.Title>
+                     <br />
+                     <p>Name: {user.Username}</p>
+                     <p>e-mail: {user.Email}</p>
+                     <p>Birthday: {user.Birthday}</p>
                   </Card.Body>
+                  <br />
+                  <div className='text-center'>
+                     <Button
+                        className='w-75'
+                        onClick={() => {
+                           if (confirm("Are you sure?")) {
+                           deleteAccount();
+                           }
+                        }}>Delete user account
+                     </Button>
+                  </div>
+                  <br />
                </Card>
-               <Button onClick={() => {
-                  if (confirm("Are you sure?")) {
-                     deleteAccount();
-                  }
-               }}>Delete user account</Button>
-         </Col>
-         <br />
-         <Col justify-content-md-center>
-               <Card>
+            </Col>
+            <br />
+            <Col xs={12} sm={8}>
+               <Card className='user-info-card'>
                   <Card.Body>
                      <Card.Title>Update your info :</Card.Title>
                      <br />
@@ -196,7 +194,7 @@ console.log("user.favoriteMovies: ", user.favoriteMovies);
                         </Form.Group>
                         <br />
                         <Form.Group>
-                           <Form.Label>Email:</Form.Label>
+                           <Form.Label>e-mail:</Form.Label>
                            <Form.Control
                               type='email'
                               value={email}
@@ -206,12 +204,11 @@ console.log("user.favoriteMovies: ", user.favoriteMovies);
                         </Form.Group>
                         <br />
                         <Form.Group>
-                           <Form.Label>Birthdate:</Form.Label>
+                           <Form.Label>Birthday:</Form.Label>
                            <Form.Control
                               type='date'
                               value={birthdate}
                               onChange={e => setBirthdate(e.target.value)}
-                              // required
                            />
                         </Form.Group>
                         <br />
@@ -219,18 +216,24 @@ console.log("user.favoriteMovies: ", user.favoriteMovies);
                      </Form>
                   </Card.Body>
                </Card>
-         </Col>
-         <Col justify-content-md-center>
-               <h3>Your Favorites:</h3>
-         </Col>
+            </Col>
+         </Row>
 
-         {filteredMovies.map(movie => (
-            
+         <Row>
+            <Col className='favorites-header'>
+               <h3>Your Favorites:</h3>
+            </Col>
+            <br />
+         </Row>
+         <br />
+         <Row>
+            {filteredMovies.map(movie => (
+               
             <Col
+               className='mb-3'
+               xs={12} md={6} lg={3}
                justify-content-md-center
                key={movie.id}
-               md={3}
-               className='mb-3'
             >
                
                <MovieCard
@@ -242,7 +245,8 @@ console.log("user.favoriteMovies: ", user.favoriteMovies);
                   onClick={handleClick}
                />
             </Col>
-         ))}
-      </>
+            ))}
+         </Row>
+      </Container>
    );
 }
