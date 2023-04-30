@@ -4,17 +4,14 @@ import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './movie-card.scss';
 
-export const MovieCard = ({ movie, addToFavorites, setFavoriteMovies, user, buttonTitle }) => {
+export const MovieCard = ({ movie, handleClickActions, setFavoriteMovies, user, buttonTitle }) => {
    console.log("MovieCard props:", movie);
 
    const [isFavorite, setIsFavorite] = useState(false);
+
    const handleClick = () => {
+      handleClickActions(movie._id)
       setIsFavorite(true);
-      addToFavorites(movie._id);
-      if (user && user.FavoriteMovies) {
-        setFavoriteMovies([user.FavoriteMovies, movie._id]);
-        setUser(updateUser);
-      }
     };
 
    return (
@@ -38,7 +35,7 @@ MovieCard.propTypes = {
       ImagePath: PropTypes.string,
       Director: PropTypes.object
    }).isRequired,
-   addToFavorites: PropTypes.func.isRequired,
+   handleClickActions: PropTypes.func.isRequired,
    user: PropTypes.object.isRequired,
    setFavoriteMovies: PropTypes.func.isRequired,
    buttonTitle: PropTypes.string.isRequired,
