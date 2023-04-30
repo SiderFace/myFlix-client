@@ -2,10 +2,11 @@ import React from 'react';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import './login-view.scss';
 
 export const LoginView = ({ onLoggedIn } ) => {
-   const [username, setUsername] = useState(' ');
-   const [password, setPassword] = useState(' ');
+   const [username, setUsername] = useState('');
+   const [password, setPassword] = useState('');
 
    const handleSubmit = (event) => {
       event.preventDefault();
@@ -38,7 +39,7 @@ export const LoginView = ({ onLoggedIn } ) => {
          });
    };
    return (
-      <Form onSubmit={handleSubmit}>
+      <Form className='login-form' onSubmit={handleSubmit}>
          <Form.Group controlId='formUsername'>
             <Form.Label>Username:</Form.Label>
             <Form.Control
