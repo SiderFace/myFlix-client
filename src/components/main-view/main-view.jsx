@@ -47,12 +47,9 @@ export const MainView = () => {
    
    const handleAddToFavorite = (movieId) => {
 
-      console.log("The value of movieId is: ", movieId);
-
       const accessToken = localStorage.getItem('token');
       const userName = JSON.parse(localStorage.getItem('user')).Username;
       
-      // Add to favorites
       fetch(`https://siders-myflix.herokuapp.com/users/${userName}/movies/${movieId}`, {
          method: 'POST',
          headers: {
@@ -67,7 +64,6 @@ export const MainView = () => {
          const updatedFavorites = [...user.FavoriteMovies, data._id];
          user.FavoriteMovies.push(data._id);
          const updateUser = { ...user, FavoriteMovies: updatedFavorites };
-         // setUser(updateUser);
          setUser({ ...user, FavoriteMovies: updatedFavorites });
 
          setMovies(prevMovies => prevMovies.map(movie => {
@@ -79,55 +75,12 @@ export const MainView = () => {
             } else {
               return movie;
             }
-          }))
-       
-         
+          }))        
       })
       .catch(error => {
          console.error(`Error adding movie to favorites: ${error}`);
       });
    };
-
-   const handleRemoveFromFavorites = (movieId) => {
-
-      console.log("The value of movieId is: ", movieId);
-    
-      const accessToken = localStorage.getItem('token');
-      const userName = JSON.parse(localStorage.getItem('user')).Username;
-    
-      // Remove from favorites
-      fetch(`https://siders-myflix.herokuapp.com/users/${userName}/movies/${movieId}`, {
-         method: 'DELETE',
-         headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-         }
-      })
-      .then(response => response.json())
-      .then(data => {
-         console.log(`Movie removed from favorites: ${JSON.stringify(data)}`);
-         alert("Movie removed from favorites");
-    
-         const updatedFavorites = user.FavoriteMovies.filter(id => id !== movieId);
-         setUser({ ...user, FavoriteMovies: updatedFavorites });
-    
-         setMovies(prevMovies => prevMovies.map(movie => {
-            if (movie._id === movieId) {
-              return {
-                ...movie,
-                Favorite: false
-              }
-            } else {
-              return movie;
-            }
-          }))
-    
-      })
-      .catch(error => {
-         console.error(`Error removing movie from favorites: ${error}`);
-      });
-    };
-
 
    return (
       <BrowserRouter>

@@ -11,7 +11,6 @@ export const ProfileView = ({ user, token, movies, onLoggedOut }) => {
    const [birthdate, setBirthdate] = useState('');
    const [favoriteMovies, setFavoriteMovies] = useState(user.FavoriteMovies || []);
    const [filteredMovies, setFilteredMovies] = useState([]);
-   // const [user, setUser] = useState(null);
 
    const addToFavorites = (movie) => { };
 
@@ -19,7 +18,6 @@ export const ProfileView = ({ user, token, movies, onLoggedOut }) => {
       const accessToken = localStorage.getItem('token');
       const userName = JSON.parse(localStorage.getItem('user')).Username;
       
-      // Add to favorites
       fetch(`https://siders-myflix.herokuapp.com/users/${userName}`, {
          method: 'GET',
          headers: {
@@ -46,7 +44,6 @@ export const ProfileView = ({ user, token, movies, onLoggedOut }) => {
       const accessToken = localStorage.getItem('token');
       const userName = JSON.parse(localStorage.getItem('user')).Username;
    
-      // Remove from favorites
       fetch(`https://siders-myflix.herokuapp.com/users/${userName}/movies/${movieId}`, {
          method: 'DELETE',
          headers: {
@@ -227,8 +224,7 @@ export const ProfileView = ({ user, token, movies, onLoggedOut }) => {
          </Row>
          <br />
          <Row>
-            {filteredMovies.map(movie => (
-               
+            {filteredMovies.map(movie => (              
             <Col
                className='mb-3'
                xs={12} md={6} lg={3}
