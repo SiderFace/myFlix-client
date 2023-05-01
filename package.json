@@ -15,7 +15,8 @@
     "react-bootstrap": "^2.7.3",
     "react-dom": "^18.2.0",
     "react-router": "^6.3.0",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "redux": "^4.2.1"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.8.3",
