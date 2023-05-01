@@ -33,6 +33,11 @@ export const MovieView = ({movieList}) => {
             <span className='heading'>Director: </span>
             <span>{myMovie.Director.Name}</span>
          </div>
+         <br />
+         <div>
+            <span className='heading'>Released: </span>
+            <span>{myMovie.Released}</span>
+         </div>
 
          <br />
          
