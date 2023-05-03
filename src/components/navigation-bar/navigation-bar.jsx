@@ -1,12 +1,12 @@
 import React from 'react';
-import { Navbar, Container, Nav } from 'react-bootstrap';
+import { Navbar, Container, Nav, Button, Form, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-export const NavigationBar = ({ user, onLoggedOut }) => {
+export const NavigationBar = ({ user, onLoggedOut, searchTerm, setSearchTerm }) => {
    return (
       <Navbar bg='light' expand='lg'>
          <Container>
-            <Navbar.Brand as={Link} to='/'>
+            <Navbar.Brand as={Link} to='/' onClick={() => setSearchTerm('')}>
                MyFlix App
             </Navbar.Brand>
 
@@ -14,6 +14,28 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
 
             <Navbar.Collapse id='basic-navbar-nav'>
                <Nav className='me-auto'>
+
+                  {user && (
+                  <>
+                     <Form inline className="d-flex">
+                        <FormControl
+                           type='text'
+                           placeholder="Search"
+                           value={searchTerm}
+                           onChange={event => setSearchTerm(event.target.value)}
+                        />
+                        {searchTerm && (
+                        <Button
+                           variant=''
+                           onClick={() => setSearchTerm('')}
+                        >
+                           X
+                        </Button>
+                        )}
+                     </Form>
+                  </>
+                  )}
+
                   {!user && (
                      < >
                         <Nav.Link as={Link} to='/Login'>

@@ -27,7 +27,6 @@ export const ProfileView = ({ user, token, movies, onLoggedOut }) => {
       })
       .then(response => response.json())
       .then(data => {
-         console.log(`User profile: ${JSON.stringify(data)}`);
 
          const filtered = movies.filter(movie => data.FavoriteMovies.includes(movie._id))
          setFilteredMovies(filtered);
@@ -38,8 +37,6 @@ export const ProfileView = ({ user, token, movies, onLoggedOut }) => {
    };
    
    const handleRemoveFromFavorites = (movieId) => {
-
-      console.log("The value of movieId is: ", movieId);
    
       const accessToken = localStorage.getItem('token');
       const userName = JSON.parse(localStorage.getItem('user')).Username;

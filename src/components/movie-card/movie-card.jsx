@@ -4,8 +4,7 @@ import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './movie-card.scss';
 
-export const MovieCard = ({ movie, handleClickActions, setFavoriteMovies, user, buttonTitle }) => {
-   console.log("MovieCard props:", movie);
+export const MovieCard = ({ movie, handleClickActions, buttonTitle }) => {
 
    const [isFavorite, setIsFavorite] = useState(false);
 
@@ -38,7 +37,5 @@ MovieCard.propTypes = {
       Director: PropTypes.object
    }).isRequired,
    handleClickActions: PropTypes.func.isRequired,
-   user: PropTypes.object.isRequired,
-   setFavoriteMovies: PropTypes.func.isRequired,
    buttonTitle: PropTypes.string.isRequired,
 };

@@ -17,6 +17,7 @@ export const MainView = () => {
    const [token, setToken] = useState(storedToken ? storedToken : null);
    const [movies, setMovies] = useState([]);
    const [user, setUser] = useState(storedUser? storedUser : null);
+   const [searchTerm, setSearchTerm] = useState('');
 
    const updateUser = (newUser) => {
       setUser(newUser);
@@ -27,6 +28,10 @@ export const MainView = () => {
       localStorage.removeItem('user');
       updateUser(null);
    };
+
+   const filteredMovies = movies.filter((movie) =>
+    movie.Title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
    useEffect(() => {
       getMovies(token);
@@ -91,6 +96,8 @@ export const MainView = () => {
                setToken(undefined);
                localStorage.clear();
             } }
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
          />
 
          <Row className='justify-content-md-center'>
@@ -155,10 +162,12 @@ export const MainView = () => {
                            <Navigate to="/login" replace />
                         ) : (
                            <Col>
-                              <ProfileView user={user} token={token} 
-                              movies={movies} 
-                              onLoggedOut={onLoggedOut} 
-                              updateUser={updateUser} />
+                              <ProfileView 
+                                 user={user} token={token} 
+                                 movies={movies} 
+                                 onLoggedOut={onLoggedOut} 
+                                 updateUser={updateUser} 
+                              />
                            </Col>
                         )}
                      </>
@@ -188,7 +197,7 @@ export const MainView = () => {
                            <Col>The list is empty!</Col>
                         ) : (
                            < >
-                              {movies.map((movie) => (
+                              {filteredMovies.map((movie) => (
                                  <Col 
                                     key={movie.id} 
                                     md={4}
