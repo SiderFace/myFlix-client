@@ -21,11 +21,13 @@ export const MovieCard = ({ movie, handleClickActions, buttonTitle }) => {
          <Card.Body>
             <Card.Title>{movie.Title}</Card.Title>
             <Card.Text>{movie.Director.Name}</Card.Text>
-            <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
+         </Card.Body>
+         <div className='button-container'>
+            <Link to={`/movies/${encodeURIComponent(movie._id)}`} className='card-actions'>
                <Button variant='link'> Open </Button>
             </Link>
             <Button variant="outline-primary" onClick={handleClick} disabled={isFavorite}>{buttonTitle}</Button>
-         </Card.Body>
+         </div>
       </Card>
    );
 };

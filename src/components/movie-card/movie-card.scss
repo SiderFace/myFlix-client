@@ -1,20 +1,38 @@
+.card {
+   margin-top: 50px;
+}
+
 .card-title {
    font-size: 1.2rem;
    margin-bottom: 10px;
    text-align: center;
-}
-
-.card-text {
+ }
+ 
+ .card-text {
    font-size: 1rem;
    margin-bottom: 20px;
    text-align: center;
-}
-
-.card-link {
+ }
+ 
+ .card-link {
    text-align: center;
-}
+ }
+ 
+ .card-img-top {
+   height: 700px; 
+   width: 100%; 
+   object-fit: contain; 
+ }
+ 
+ .movie-title {
+   font-weight: bold;
+ }
+ 
+ .button-container {
+   padding: 10px;
+   display: flex;
+   justify-content: space-between;
+ }
+ 
 
-.card-img-top {
-   height: 750px;
-   object-fit: cover;
-}
+ 

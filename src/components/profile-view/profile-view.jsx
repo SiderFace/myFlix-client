@@ -53,8 +53,7 @@ export const ProfileView = ({ user, token, movies, onLoggedOut }) => {
          console.log(`Movie removed from favorites: ${JSON.stringify(data)}`);
          alert("Movie removed from favorites");
    
-         const updatedFavorites = [...user.FavoriteMovies, data._id];
-         user.FavoriteMovies.push(data._id);
+         const updatedFavorites = user.FavoriteMovies.filter(id => id !== movieId);
          setUser({ ...user, FavoriteMovies: updatedFavorites });
    
          setMovies(prevMovies => prevMovies.map(movie => {
@@ -224,8 +223,8 @@ export const ProfileView = ({ user, token, movies, onLoggedOut }) => {
          <Row>
             {filteredMovies.map(movie => (              
             <Col
-               className='mb-5'
-               md={4}
+               className='mb-3'
+               xs={12} md={6} lg={3}
                justify-content-md-center
                key={movie.id}
             >
