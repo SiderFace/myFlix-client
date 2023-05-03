@@ -31,24 +31,35 @@ export const MainView = () => {
 
    const filteredMovies = movies.filter((movie) =>
     movie.Title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+   );
 
    useEffect(() => {
       getMovies(token);
    }, [token]);
 
-   const getMovies = (token) => {
+   const getMovies = async (token) => {
       if (!token) {
          return;
       }
+      const response = await fetch('https://siders-myflix.herokuapp.com/movies', {
+         headers: {Authorization: `Bearer ${token}`},
+      });
+      const json = await response.json();
+      setMovies(json);
+      };
 
-      fetch('https://siders-myflix.herokuapp.com/movies', {
-         headers: { Authorization: `Bearer ${token}` }
-      }) .then((response) => response.json())
-         .then((data) => {
-            setMovies(data);
-         });
-   }
+   // const getMovies = (token) => {
+   //    if (!token) {
+   //       return;
+   //    }
+
+   //    fetch('https://siders-myflix.herokuapp.com/movies', {
+   //       headers: { Authorization: `Bearer ${token}` }
+   //    }) .then((response) => response.json())
+   //       .then((data) => {
+   //          setMovies(data);
+   //       });
+   // }
    
    const handleAddToFavorite = (movieId) => {
 
@@ -68,7 +79,6 @@ export const MainView = () => {
          alert("Movie added to favorites");
          const updatedFavorites = [...user.FavoriteMovies, data._id];
          user.FavoriteMovies.push(data._id);
-         const updateUser = { ...user, FavoriteMovies: updatedFavorites };
          setUser({ ...user, FavoriteMovies: updatedFavorites });
 
          setMovies(prevMovies => prevMovies.map(movie => {

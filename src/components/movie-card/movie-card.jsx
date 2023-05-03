@@ -11,7 +11,7 @@ export const MovieCard = ({ movie, handleClickActions, buttonTitle }) => {
    const handleClick = () => {
       handleClickActions(movie._id)
       setIsFavorite(true);
-    };
+   };
 
    return (
       <Card className='h-100'>

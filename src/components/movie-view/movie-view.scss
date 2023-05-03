@@ -1,26 +1,39 @@
-// .back-button {
-//    padding: 4px 12px 4px 12px;
-//    color: whitesmoke;
-//    background-color: dodgerblue;
-//    border: none;
-//    border-radius: 4px;
-//  }
- 
+
+$primary: rgb(189, 85, 85);
+$body-bg: rgb(126, 2, 2);
+
+.back-button {
+   padding: 8px 16px;
+   font-size: 16px;
+   font-weight: bold;
+   color: white !important;
+   background-color: #a34545;
+   border: none;
+   border-radius: 4px;
+   text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+   box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+   transition: all 0.2s ease-in-out;
+ }
+
+ .back-button:hover {
+   background-color: lighten($primary, 10%);
+   transform: translateY(-2px);
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+ }
 img {
 width: 100%
 }
 
 .movie-info {
 font-size: 18px;
-font-weight: bold;
-color: black;
-text-shadow: 0 0 12px white;
+color: #ffffff;
+text-shadow: 0 0 12px black;
 margin-bottom: 36px;
 }
 
 .heading {
    font-size: 21px;
    font-weight: bolder;
-   color: white;
+   color: rgb(253, 112, 112);
    text-shadow: 0 0 12px black;
 }

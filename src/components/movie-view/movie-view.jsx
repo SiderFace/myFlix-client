@@ -42,7 +42,7 @@ export const MovieView = ({movieList}) => {
          <br />
          
          <Button className='back-button'>
-            <Link to='/'> Back </Link>
+            <Link to='/' style={{color: 'white'}}> Back </Link>
          </Button>
       </div>
    );
