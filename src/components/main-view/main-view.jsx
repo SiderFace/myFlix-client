@@ -183,18 +183,20 @@ export const MainView = () => {
                      </>
                   }
                />
-               <Route path="/users/:Username" render={({ match }) => {
-                  return (
-                     <ProfileView
-                        user={user}
-                        token={token}
-                        movies={movies}
-                        favoriteMovies={user.favoriteMovies}
-                        onLoggedOut={() => { onLoggedOut() }}
-                        updateUser={(user) => { updateUser(user) }}
-                        match={match}
-                     />
-                  );
+               <Route 
+                  path="/users/:Username" 
+                  render={({ match }) => {
+                     return (
+                        <ProfileView
+                           user={user}
+                           token={token}
+                           movies={movies}
+                           favoriteMovies={user.favoriteMovies}
+                           onLoggedOut={() => { onLoggedOut() }}
+                           updateUser={(user) => { updateUser(user) }}
+                           match={match}
+                        />
+                     );
                } } />
 
                <Route
@@ -210,7 +212,6 @@ export const MainView = () => {
                               {filteredMovies.map((movie) => (
                                  <Col 
                                     key={movie.id} 
-                                    md={4}
                                     className='mb-3'
                                     xs={12} sm={6} md={4} lg={3}
                                  >

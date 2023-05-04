@@ -9,10 +9,8 @@ export const ProfileView = ({ user, token, movies, onLoggedOut }) => {
    const [password, setPassword] = useState('');
    const [email, setEmail] = useState('');
    const [birthdate, setBirthdate] = useState('');
-   const [setFavoriteMovies] = useState(user.FavoriteMovies || []);
+   const [favoriteMovies, setFavoriteMovies] = useState(user.FavoriteMovies || []);
    const [filteredMovies, setFilteredMovies] = useState([]);
-
-   const addToFavorites = (movie) => { };
 
    const handleGetUserFavorites = () => {
       const accessToken = localStorage.getItem('token');
@@ -113,7 +111,7 @@ export const ProfileView = ({ user, token, movies, onLoggedOut }) => {
          } else {
             alert("Changes successful");
          }
-      };
+   };
 
    const deleteAccount = () => {
       fetch(`https://siders-myflix.herokuapp.com/users/${user.Username}`, {
