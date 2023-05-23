@@ -38,3 +38,5 @@ Dependencies :
 	- react-router-dom
 	- redux
 
+Local Run command :
+- npx parcel src.index.html
